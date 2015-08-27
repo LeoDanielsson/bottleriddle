@@ -4,15 +4,15 @@ import model.Bottle;
  * Created by danie_000 on 27/08/2015.
  */
 public class BottleManager {
-    public void fill(Bottle bottle) {
+    public void fill(final Bottle bottle) {
         bottle.setCurrentVolume(bottle.getMaxVolume());
     }
 
-    public void empty(Bottle bottle) {
+    public void empty(final Bottle bottle) {
         bottle.setCurrentVolume(0);
     }
 
-    public void pour(Bottle source, Bottle destination) {
+    public void pour(final Bottle source, final Bottle destination) {
         int volumeToPour = calculateVolumeToPour(source, destination);
 
         source.setCurrentVolume(source.getCurrentVolume() - volumeToPour);
@@ -24,7 +24,7 @@ public class BottleManager {
         }
     }
 
-    private static int calculateVolumeToPour(Bottle source, Bottle destination) {
+    private static int calculateVolumeToPour(final Bottle source, final Bottle destination) {
         final int spaceInDestination = destination.getMaxVolume() - destination.getCurrentVolume();
 
         if(source.getCurrentVolume() > spaceInDestination) {

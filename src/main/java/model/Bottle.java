@@ -22,4 +22,12 @@ public final class Bottle {
     public void setCurrentVolume(int currentVolume) {
         this.currentVolume = currentVolume;
     }
+
+    public boolean isFull() {
+        return this.currentVolume == this.maxVolume;
+    }
+
+    public boolean isEmpty() {
+        return this.currentVolume == 0;
+    }
 }

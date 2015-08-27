@@ -34,11 +34,51 @@ public class BottleRiddleSolver {
             smallBottle = bottle1;
         }
 
-        if(bigBottle.getMaxVolume() - smallBottle.getMaxVolume() < targetVolume) {
+        int stepCount = 0;
 
+        if(bigBottle.getMaxVolume() - smallBottle.getMaxVolume() > targetVolume) {
+            while(!solved(bigBottle, smallBottle, targetVolume)) {
+                performPourSmallToBigStrategyAction(bigBottle, smallBottle, targetVolume);
+                printState(smallBottle, bigBottle);
+                stepCount++;
+            }
+        } else {
+            while(!solved(bigBottle, smallBottle, targetVolume)) {
+                performPourBigToSmallStrategyAction(bigBottle, smallBottle, targetVolume);
+                printState(smallBottle, bigBottle);
+                stepCount++;
+            }
         }
 
-        hardCodedSolution(smallBottle, bigBottle, targetVolume);
+        System.out.printf("Found solution in %d steps.\n", stepCount);
+
+        //hardCodedSolution(smallBottle, bigBottle, targetVolume);
+    }
+
+    private void performPourBigToSmallStrategyAction(Bottle bigBottle, Bottle smallBottle, int targetVolume) {
+        if(smallBottle.isFull()) {
+            bottleManager.empty(smallBottle);
+            return;
+        }
+
+        if(bigBottle.isEmpty()) {
+            bottleManager.fill(bigBottle);
+            return;
+        }
+
+        bottleManager.pour(bigBottle, smallBottle);
+    }
+
+    private void performPourSmallToBigStrategyAction(Bottle bigBottle, Bottle smallBottle, int targetVolume) {
+        if(!bigBottle.isFull()) {
+            if(smallBottle.isEmpty()) {
+                bottleManager.fill(smallBottle);
+                return;
+            }
+            bottleManager.pour(smallBottle, bigBottle);
+            return;
+        }
+        bottleManager.empty(bigBottle);
     }
 
 
