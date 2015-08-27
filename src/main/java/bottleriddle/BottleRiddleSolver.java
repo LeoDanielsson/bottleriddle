@@ -10,28 +10,16 @@ import bottleriddle.strategy.SmallToBigStrategy;
  */
 public class BottleRiddleSolver {
 
-    private static final int BOTTLE_1_VOLUME = 3;
-    private static final int BOTTLE_2_VOLUME = 5;
-    private static final int[] TARGET_VOLUMES = { 1, 4 };
-
     final BottleManager bottleManager = new BottleManager();
 
-    public static void main(String[] args)  {
-        final BottleRiddleSolver bottleRiddleSolver = new BottleRiddleSolver();
-
-        for(int targetVolume : TARGET_VOLUMES) {
-            bottleRiddleSolver.solve(new Bottle(BOTTLE_1_VOLUME), new Bottle(BOTTLE_2_VOLUME), targetVolume);
-        }
-    }
-
-    public void solve(final Bottle bottle1,final Bottle bottle2,final int targetVolume) {
+    public void solve(final Bottle bottle1, final Bottle bottle2, final int targetVolume) {
         System.out.printf("\nStaring to solve. Target volume: %d\n", targetVolume);
         printState(bottle1, bottle2);
 
         final Bottle bigBottle;
         final Bottle smallBottle;
 
-        if(bottle1.getMaxVolume() > bottle2.getMaxVolume()) {
+        if (bottle1.getMaxVolume() > bottle2.getMaxVolume()) {
             bigBottle = bottle1;
             smallBottle = bottle2;
         } else {
@@ -42,78 +30,29 @@ public class BottleRiddleSolver {
         int stepCount = 0;
 
         BottleRiddleStrategy strategy = chooseStrategy(bigBottle, smallBottle, targetVolume);
-            while(!solved(bigBottle, smallBottle, targetVolume)) {
-                strategy.performAction(bottleManager, bigBottle, smallBottle);
-                printState(smallBottle, bigBottle);
-                stepCount++;
-            }
 
+        while (!solved(bigBottle, smallBottle, targetVolume)) {
+            strategy.performAction(bigBottle, smallBottle);
+            printState(smallBottle, bigBottle);
+            stepCount++;
+        }
 
         System.out.printf("Found solution in %d steps.\n", stepCount);
-
     }
 
     private BottleRiddleStrategy chooseStrategy(Bottle bigBottle, Bottle smallBottle, int targetVolume) {
-        if(bigBottle.getMaxVolume() - smallBottle.getMaxVolume() > targetVolume) {
-            return new SmallToBigStrategy();
+        if (bigBottle.getMaxVolume() - smallBottle.getMaxVolume() > targetVolume) {
+            return new SmallToBigStrategy(bottleManager);
         }
-        return new BigToSmallStrategy();
-    }
-
-
-    private void hardCodedSolution(Bottle smallBottle, Bottle bigBottle, int targetVolume) {
-        if(targetVolume == 1) {
-            bottleManager.fill(smallBottle);
-            printState(smallBottle, bigBottle);
-
-            bottleManager.pour(smallBottle, bigBottle);
-            printState(smallBottle, bigBottle);
-
-            bottleManager.fill(smallBottle);
-            printState(smallBottle, bigBottle);
-
-            bottleManager.pour(smallBottle, bigBottle);
-            printState(smallBottle, bigBottle);
-
-            if(solved(smallBottle, bigBottle, targetVolume)) {
-                return;
-            } else {
-                System.out.printf("FAIL!");
-            }
-        }
-        if(targetVolume == 4) {
-            bottleManager.fill(bigBottle);
-            printState(smallBottle, bigBottle);
-
-            bottleManager.pour(bigBottle, smallBottle);
-            printState(smallBottle, bigBottle);
-
-            bottleManager.empty(smallBottle);
-            printState(smallBottle, bigBottle);
-
-            bottleManager.pour(bigBottle, smallBottle);
-            printState(smallBottle, bigBottle);
-
-            bottleManager.fill(bigBottle);
-            printState(smallBottle, bigBottle);
-
-            bottleManager.pour(bigBottle, smallBottle);
-            printState(smallBottle, bigBottle);
-
-            if(solved(smallBottle, bigBottle, targetVolume)) {
-                return;
-            } else {
-                System.out.printf("FAIL!");
-            }
-        }
+        return new BigToSmallStrategy(bottleManager);
     }
 
     private static boolean solved(Bottle bottle1, Bottle bottle2, int targetVolume) {
-        if(bottle1.getCurrentVolume() == targetVolume) {
+        if (bottle1.getCurrentVolume() == targetVolume) {
             System.out.printf("SOLVED: Bottle 1 contains %d litres.\n", targetVolume);
             return true;
         }
-        if(bottle2.getCurrentVolume() == targetVolume) {
+        if (bottle2.getCurrentVolume() == targetVolume) {
             System.out.printf("SOLVED: Bottle 2 contains %d litres.\n", targetVolume);
             return true;
         }
@@ -123,6 +62,4 @@ public class BottleRiddleSolver {
     private static void printState(Bottle bottle1, Bottle bottle2) {
         System.out.printf("[%d/%d] [%d/%d] \n", bottle1.getCurrentVolume(), bottle1.getMaxVolume(), bottle2.getCurrentVolume(), bottle2.getMaxVolume());
     }
-
-
 }

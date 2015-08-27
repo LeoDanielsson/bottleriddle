@@ -8,5 +8,5 @@ import bottleriddle.model.Bottle;
  * Created by danie_000 on 27/08/2015.
  */
 public interface BottleRiddleStrategy {
-    void performAction(BottleManager bottleManager, Bottle bigBottle, Bottle smallBottle);
+    void performAction(Bottle bigBottle, Bottle smallBottle);
 }
