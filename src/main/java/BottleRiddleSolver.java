@@ -70,15 +70,15 @@ public class BottleRiddleSolver {
     }
 
     private void performPourSmallToBigStrategyAction(Bottle bigBottle, Bottle smallBottle, int targetVolume) {
-        if(!bigBottle.isFull()) {
-            if(smallBottle.isEmpty()) {
-                bottleManager.fill(smallBottle);
-                return;
-            }
-            bottleManager.pour(smallBottle, bigBottle);
+        if(bigBottle.isFull()) {
+            bottleManager.empty(bigBottle);
+        }
+
+        if(smallBottle.isEmpty()) {
+            bottleManager.fill(smallBottle);
             return;
         }
-        bottleManager.empty(bigBottle);
+        bottleManager.pour(smallBottle, bigBottle);
     }
 
 
