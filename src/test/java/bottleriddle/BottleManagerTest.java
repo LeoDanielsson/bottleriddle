@@ -1,4 +1,7 @@
-import model.Bottle;
+package bottleriddle;
+
+import bottleriddle.BottleManager;
+import bottleriddle.model.Bottle;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

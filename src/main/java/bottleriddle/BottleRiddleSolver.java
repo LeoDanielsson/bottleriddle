@@ -1,4 +1,9 @@
-import model.Bottle;
+package bottleriddle;
+
+import bottleriddle.model.Bottle;
+import bottleriddle.strategy.BigToSmallStrategy;
+import bottleriddle.strategy.BottleRiddleStrategy;
+import bottleriddle.strategy.SmallToBigStrategy;
 
 /**
  * Created by danie_000 on 27/08/2015.
@@ -36,49 +41,23 @@ public class BottleRiddleSolver {
 
         int stepCount = 0;
 
-        if(bigBottle.getMaxVolume() - smallBottle.getMaxVolume() > targetVolume) {
+        BottleRiddleStrategy strategy = chooseStrategy(bigBottle, smallBottle, targetVolume);
             while(!solved(bigBottle, smallBottle, targetVolume)) {
-                performPourSmallToBigStrategyAction(bigBottle, smallBottle, targetVolume);
+                strategy.performAction(bottleManager, bigBottle, smallBottle);
                 printState(smallBottle, bigBottle);
                 stepCount++;
             }
-        } else {
-            while(!solved(bigBottle, smallBottle, targetVolume)) {
-                performPourBigToSmallStrategyAction(bigBottle, smallBottle, targetVolume);
-                printState(smallBottle, bigBottle);
-                stepCount++;
-            }
-        }
+
 
         System.out.printf("Found solution in %d steps.\n", stepCount);
 
-        //hardCodedSolution(smallBottle, bigBottle, targetVolume);
     }
 
-    private void performPourBigToSmallStrategyAction(Bottle bigBottle, Bottle smallBottle, int targetVolume) {
-        if(smallBottle.isFull()) {
-            bottleManager.empty(smallBottle);
-            return;
+    private BottleRiddleStrategy chooseStrategy(Bottle bigBottle, Bottle smallBottle, int targetVolume) {
+        if(bigBottle.getMaxVolume() - smallBottle.getMaxVolume() > targetVolume) {
+            return new SmallToBigStrategy();
         }
-
-        if(bigBottle.isEmpty()) {
-            bottleManager.fill(bigBottle);
-            return;
-        }
-
-        bottleManager.pour(bigBottle, smallBottle);
-    }
-
-    private void performPourSmallToBigStrategyAction(Bottle bigBottle, Bottle smallBottle, int targetVolume) {
-        if(bigBottle.isFull()) {
-            bottleManager.empty(bigBottle);
-        }
-
-        if(smallBottle.isEmpty()) {
-            bottleManager.fill(smallBottle);
-            return;
-        }
-        bottleManager.pour(smallBottle, bigBottle);
+        return new BigToSmallStrategy();
     }
 
 
