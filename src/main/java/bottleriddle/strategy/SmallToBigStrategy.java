@@ -17,6 +17,7 @@ public class SmallToBigStrategy implements bottleriddle.strategy.BottleRiddleStr
     public void performAction(Bottle bigBottle, Bottle smallBottle) {
         if(bigBottle.isFull()) {
             bottleManager.empty(bigBottle);
+            return;
         }
 
         if(smallBottle.isEmpty()) {
