@@ -1,10 +1,7 @@
-package bottleriddle;
+package bottleriddle.manager;
 
 import bottleriddle.model.Bottle;
 
-/**
- * Created by danie_000 on 27/08/2015.
- */
 public class BottleManager {
     public void fill(final Bottle bottle) {
         bottle.setCurrentVolume(bottle.getMaxVolume());
@@ -19,7 +16,7 @@ public class BottleManager {
 
         source.setCurrentVolume(source.getCurrentVolume() - volumeToPour);
 
-        if(destination.getMaxVolume() <= destination.getCurrentVolume() + volumeToPour) {
+        if (destination.getMaxVolume() <= destination.getCurrentVolume() + volumeToPour) {
             destination.setCurrentVolume(destination.getMaxVolume());
         } else {
             destination.setCurrentVolume(destination.getCurrentVolume() + volumeToPour);
@@ -29,10 +26,10 @@ public class BottleManager {
     private static int calculateVolumeToPour(final Bottle source, final Bottle destination) {
         final int spaceInDestination = destination.getMaxVolume() - destination.getCurrentVolume();
 
-        if(source.getCurrentVolume() > spaceInDestination) {
+        if (source.getCurrentVolume() > spaceInDestination) {
             return spaceInDestination;
         }
-        return  source.getCurrentVolume();
+        return source.getCurrentVolume();
     }
 
 }

@@ -1,13 +1,11 @@
 package bottleriddle;
 
+import bottleriddle.manager.BottleManager;
 import bottleriddle.model.Bottle;
 import bottleriddle.strategy.BigToSmallStrategy;
 import bottleriddle.strategy.BottleRiddleStrategy;
 import bottleriddle.strategy.SmallToBigStrategy;
 
-/**
- * Created by danie_000 on 27/08/2015.
- */
 public class BottleRiddleSolver {
 
     final BottleManager bottleManager = new BottleManager();

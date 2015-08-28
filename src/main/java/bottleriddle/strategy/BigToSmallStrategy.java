@@ -1,12 +1,9 @@
 package bottleriddle.strategy;
 
-import bottleriddle.BottleManager;
+import bottleriddle.manager.BottleManager;
 import bottleriddle.model.Bottle;
 
-/**
- * Created by danie_000 on 27/08/2015.
- */
-public class BigToSmallStrategy implements BottleRiddleStrategy{
+public class BigToSmallStrategy implements BottleRiddleStrategy {
     private final BottleManager bottleManager;
 
     public BigToSmallStrategy(BottleManager bottleManager) {
@@ -15,12 +12,12 @@ public class BigToSmallStrategy implements BottleRiddleStrategy{
 
     @Override
     public void performAction(Bottle bigBottle, Bottle smallBottle) {
-        if(smallBottle.isFull()) {
+        if (smallBottle.isFull()) {
             bottleManager.empty(smallBottle);
             return;
         }
 
-        if(bigBottle.isEmpty()) {
+        if (bigBottle.isEmpty()) {
             bottleManager.fill(bigBottle);
             return;
         }

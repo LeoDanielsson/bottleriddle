@@ -1,6 +1,6 @@
-package bottleriddle;
+package manager;
 
-import bottleriddle.BottleManager;
+import bottleriddle.manager.BottleManager;
 import bottleriddle.model.Bottle;
 import org.junit.Test;
 

@@ -1,8 +1,5 @@
 package bottleriddle.model;
 
-/**
- * Created by danie_000 on 27/08/2015.
- */
 public final class Bottle {
     private final int maxVolume;
     private int currentVolume = 0;
