@@ -11,11 +11,14 @@ Application that will solve the following riddle
 >How can 4 liters be measured?
 
 ## Running ##
-###With maven###
-Run the following on command line:
+###Running using maven###
+* Requires JDK 8 to be installed and JAVA_HOME environment variable to be set
+* Requires Maven to be installed and added to PATH environment variable
+
+Navigate to repository root and run the following on command line:
 ```
 mvn compile exec:java
 ```
 
-###In IDE###
-Import the code into an IDE and run Main.java
+###Running using IDE###
+Import the code into your favourite IDE and run Main.java
