@@ -30,7 +30,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>bottleriddle.BottleManager</mainClass>
+                    <mainClass>bottleriddle.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
