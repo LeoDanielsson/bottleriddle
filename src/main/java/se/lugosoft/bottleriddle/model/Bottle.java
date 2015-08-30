@@ -1,4 +1,4 @@
-package bottleriddle.model;
+package se.lugosoft.bottleriddle.model;
 
 public final class Bottle {
     private final int maxVolume;

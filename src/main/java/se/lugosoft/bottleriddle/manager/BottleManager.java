@@ -1,6 +1,6 @@
-package bottleriddle.manager;
+package se.lugosoft.bottleriddle.manager;
 
-import bottleriddle.model.Bottle;
+import se.lugosoft.bottleriddle.model.Bottle;
 
 public class BottleManager {
     public void fill(final Bottle bottle) {

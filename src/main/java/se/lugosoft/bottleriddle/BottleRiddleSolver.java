@@ -1,18 +1,21 @@
-package bottleriddle;
+package se.lugosoft.bottleriddle;
 
-import bottleriddle.manager.BottleManager;
-import bottleriddle.model.Bottle;
-import bottleriddle.strategy.BigToSmallStrategy;
-import bottleriddle.strategy.BottleRiddleStrategy;
-import bottleriddle.strategy.SmallToBigStrategy;
+import se.lugosoft.bottleriddle.manager.BottleManager;
+import se.lugosoft.bottleriddle.model.Bottle;
+import se.lugosoft.bottleriddle.strategy.BigToSmallStrategy;
+import se.lugosoft.bottleriddle.strategy.BottleRiddleStrategy;
+import se.lugosoft.bottleriddle.strategy.SmallToBigStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BottleRiddleSolver {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BottleRiddleSolver.class);
 
     final BottleManager bottleManager = new BottleManager();
 
     public void solve(final Bottle bottle1, final Bottle bottle2, final int targetVolume) {
-        System.out.printf("\nStaring to solve. Target volume: %d\n", targetVolume);
-        printState(bottle1, bottle2);
+        LOGGER.info("Starting to solve. Target volume: {}", targetVolume);
+        logState(bottle1, bottle2);
 
         final Bottle bigBottle;
         final Bottle smallBottle;
@@ -31,11 +34,11 @@ public class BottleRiddleSolver {
 
         while (!solved(bigBottle, smallBottle, targetVolume)) {
             strategy.performAction(bigBottle, smallBottle);
-            printState(smallBottle, bigBottle);
+            logState(smallBottle, bigBottle);
             stepCount++;
         }
 
-        System.out.printf("Found solution in %d steps.\n", stepCount);
+        LOGGER.info("Found solution in {} steps.", stepCount);
     }
 
     private BottleRiddleStrategy chooseStrategy(Bottle bigBottle, Bottle smallBottle, int targetVolume) {
@@ -47,17 +50,17 @@ public class BottleRiddleSolver {
 
     private static boolean solved(Bottle bottle1, Bottle bottle2, int targetVolume) {
         if (bottle1.getCurrentVolume() == targetVolume) {
-            System.out.printf("SOLVED: Bottle 1 contains %d litres.\n", targetVolume);
+            LOGGER.info("SOLVED: Bottle 1 contains {} litres", targetVolume);
             return true;
         }
         if (bottle2.getCurrentVolume() == targetVolume) {
-            System.out.printf("SOLVED: Bottle 2 contains %d litres.\n", targetVolume);
+            LOGGER.info("SOLVED: Bottle 2 contains {} litres", targetVolume);
             return true;
         }
         return false;
     }
 
-    private static void printState(Bottle bottle1, Bottle bottle2) {
-        System.out.printf("[%d/%d] [%d/%d] \n", bottle1.getCurrentVolume(), bottle1.getMaxVolume(), bottle2.getCurrentVolume(), bottle2.getMaxVolume());
+    private static void logState(Bottle bottle1, Bottle bottle2) {
+        LOGGER.info("[{}/{}] [{}/{}]", bottle1.getCurrentVolume(), bottle1.getMaxVolume(), bottle2.getCurrentVolume(), bottle2.getMaxVolume());
     }
 }

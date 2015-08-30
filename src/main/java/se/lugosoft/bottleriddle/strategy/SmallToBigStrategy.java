@@ -1,9 +1,9 @@
-package bottleriddle.strategy;
+package se.lugosoft.bottleriddle.strategy;
 
-import bottleriddle.manager.BottleManager;
-import bottleriddle.model.Bottle;
+import se.lugosoft.bottleriddle.manager.BottleManager;
+import se.lugosoft.bottleriddle.model.Bottle;
 
-public class SmallToBigStrategy implements bottleriddle.strategy.BottleRiddleStrategy {
+public class SmallToBigStrategy implements se.lugosoft.bottleriddle.strategy.BottleRiddleStrategy {
     private final BottleManager bottleManager;
 
     public SmallToBigStrategy(BottleManager bottleManager) {

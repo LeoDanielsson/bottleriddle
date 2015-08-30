@@ -1,6 +1,6 @@
-package bottleriddle;
+package se.lugosoft.bottleriddle;
 
-import bottleriddle.model.Bottle;
+import se.lugosoft.bottleriddle.model.Bottle;
 
 import java.util.Arrays;
 
