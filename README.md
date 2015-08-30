@@ -21,4 +21,5 @@ mvn compile exec:java
 ```
 
 ###Running using IDE###
+* Requires JDK 8 to be installed and an IDE that can handle Java 8
 Import the code into your favourite IDE and run Main.java
