@@ -1,17 +1,22 @@
 package se.lugosoft.bottleriddle;
 
-import se.lugosoft.bottleriddle.manager.BottleManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.lugosoft.bottleriddle.model.Bottle;
 import se.lugosoft.bottleriddle.strategy.BigToSmallStrategy;
 import se.lugosoft.bottleriddle.strategy.BottleRiddleStrategy;
 import se.lugosoft.bottleriddle.strategy.SmallToBigStrategy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BottleRiddleSolver {
     private static final Logger LOGGER = LoggerFactory.getLogger(BottleRiddleSolver.class);
 
-    final BottleManager bottleManager = new BottleManager();
+    private BigToSmallStrategy bigToSmallStrategy;
+    private SmallToBigStrategy smallToBigStrategy;
+
+    public BottleRiddleSolver(BigToSmallStrategy bigToSmallStrategy, SmallToBigStrategy smallToBigStrategy) {
+        this.bigToSmallStrategy = bigToSmallStrategy;
+        this.smallToBigStrategy = smallToBigStrategy;
+    }
 
     public void solve(final Bottle bottle1, final Bottle bottle2, final int targetVolume) {
         LOGGER.info("Starting to solve. Target volume: {}", targetVolume);
@@ -43,9 +48,9 @@ public class BottleRiddleSolver {
 
     private BottleRiddleStrategy chooseStrategy(Bottle bigBottle, Bottle smallBottle, int targetVolume) {
         if (bigBottle.getMaxVolume() - smallBottle.getMaxVolume() > targetVolume) {
-            return new SmallToBigStrategy(bottleManager);
+            return smallToBigStrategy;
         }
-        return new BigToSmallStrategy(bottleManager);
+        return bigToSmallStrategy;
     }
 
     private static boolean solved(Bottle bottle1, Bottle bottle2, int targetVolume) {
