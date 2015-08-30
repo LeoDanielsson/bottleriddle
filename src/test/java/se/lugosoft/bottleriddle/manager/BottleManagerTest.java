@@ -1,7 +1,7 @@
 package se.lugosoft.bottleriddle.manager;
 
-import se.lugosoft.bottleriddle.model.Bottle;
 import org.junit.Test;
+import se.lugosoft.bottleriddle.model.Bottle;
 
 import static org.junit.Assert.assertEquals;
 
