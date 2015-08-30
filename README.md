@@ -17,8 +17,9 @@ Application that will solve the following riddle
 
 Navigate to repository root and run the following on command line:
 ```
-mvn compile exec:java
+mvn verify exec:java
 ```
+The solution to the riddle will be printed in the console.
 
 ###Running using IDE###
 * Requires JDK 8 to be installed and an IDE that can handle Java 8
